@@ -137,21 +137,4 @@ public class ScheduleMeetingApi {
     private String getPrefixUrl() {
         return SDKConfigMgr.getServerHost() + prefixUrl;
     }
-
-    public static void main(String[] args) throws Exception {
-        ScheduleMeetingApi scheduleMeetingApi = new ScheduleMeetingApi();
-        ReminderMeeting reminderMeeting = new ReminderMeeting();
-        reminderMeeting.setTitle("test-yihui1-1");
-        reminderMeeting.setAutoRecord(1);
-        reminderMeeting.setStartTime(System.currentTimeMillis() + 60 * 1000);
-        reminderMeeting.setEndTime(System.currentTimeMillis() + 300 * 1000);
-        reminderMeeting.setMeetingRoomType(1);
-        Result result = scheduleMeetingApi.updateMeeting("ccba01147577386a1960462392eaeecf7bbe4b1c",
-                "62e902a6a3c2427d60d52c166ae057260a167fb3c74d1eda86d5f0e0967a579c", "ff8080815dfb1e16015e377057df3173",
-                reminderMeeting, -1);
-        System.out.println(result);
-        Result<ReminderMeeting[]> list = scheduleMeetingApi.getAllMeeting("ccba01147577386a1960462392eaeecf7bbe4b1c",
-                "62e902a6a3c2427d60d52c166ae057260a167fb3c74d1eda86d5f0e0967a579c", 0);
-        System.out.println(list);
-    }
 }

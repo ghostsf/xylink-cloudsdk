@@ -113,24 +113,4 @@ public class SignatureSample {
             return null;
         }
     }
-
-    public static void main(String[] args) throws Exception {
-        String url = "https://sdk.xylink.com/api/rest/external/v1/meetingroom/918813020407/vods?endTime=0&enterpriseId=123f7b15161e26feb231e45e96e457e7c2774a1b&startTime=0";
-        String token = "6f1e0891d5b413900bbcf94be78e979368cf3789b9919bc59de4de729185bec0";
-        String jsonEntity = "[{" +
-                "\"title\":\"企业sdk测试\"," +
-                "\"startTime\":177796400000," +
-                "\"endTime\":1797803600000," +
-                "\"participants\":[\"957140\"," +
-                "\"469632\"" +
-                "]," +
-                "\"conferenceNumber\":\"915737369402\"," +
-                "\"address\":\"北京\"," +
-                "\"details\":\"1029d\"," +
-                "\"autoInvite\":1" +
-                "}]";
-        System.out.println(new SignatureSample().computeSignature(jsonEntity, "GET", token, url));
-        System.out.println(DigestUtils.md5Hex("QT1jZ3Albl3LiiErQFkhWuH2hVVEiKHkI+t6aBcxcPA="));
-
-    }
 }

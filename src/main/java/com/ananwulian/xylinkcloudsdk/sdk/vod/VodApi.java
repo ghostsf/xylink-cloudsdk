@@ -6,6 +6,8 @@ import com.ananwulian.xylinkcloudsdk.util.HttpUtil;
 import com.ananwulian.xylinkcloudsdk.util.Result;
 import com.ananwulian.xylinkcloudsdk.util.SignatureSample;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -17,6 +19,8 @@ import java.util.Map;
  * Created by maolizhi on 12/18/2016.
  */
 public class VodApi {
+    private static Logger logger = LoggerFactory.getLogger(VodApi.class);
+
     private static SignatureSample signatureSample = new SignatureSample();
     private static final String prefixUrl = "/api/rest/external/v1/";
 
@@ -112,9 +116,9 @@ public class VodApi {
             fos = new FileOutputStream(path);
             fos.write(bytes);
         } catch (FileNotFoundException e) {
-            System.out.println("File Path not found!");
+            logger.error("File Path not found!",e);
         } catch (IOException e) {
-            System.out.println("Convert byte array to image,IO Errot!");
+            logger.error("Convert byte array to image,IO Errot!",e);
         }
 
     }

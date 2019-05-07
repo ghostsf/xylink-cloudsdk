@@ -69,10 +69,8 @@ public class LiveVideoApi {
     public Result deleteLiveVideo(String enterpriseId,String token,String nemoNumber,String liveId)throws IOException{
         String surl = getPrefixUrl() + enterpriseId + "/xiaoyunumber/" + nemoNumber + "/live/" +liveId
                 + "?enterpriseId="+enterpriseId;
-        System.out.println(surl);
         String signature = signatureSample.computeSignature("","DELETE",token,surl);
         surl += "&signature=" + signature;
-        System.out.println(surl);
         return HttpUtil.getResponse(surl,"DELETE", null, null);
     }
 
@@ -92,7 +90,6 @@ public class LiveVideoApi {
                 + "?enterpriseId="+enterpriseId;
         String signature = signatureSample.computeSignature("","GET",token,surl);
         surl += "&signature=" + signature;
-        System.out.println(surl);
         return HttpUtil.getResponse(surl,"GET", null, LV.class);
     }
 
@@ -109,10 +106,8 @@ public class LiveVideoApi {
     public Result<String[]> getVideos(String enterpriseId,String token,String nemoNumber,String liveId) throws IOException{
         String surl = getPrefixUrl() + enterpriseId + "/xiaoyunumber/" + nemoNumber + "/live/" +liveId + "/videos"
                 + "?enterpriseId="+enterpriseId;
-        System.out.println(surl);
         String signature = signatureSample.computeSignature("","GET",token,surl);
         surl += "&signature=" + signature;
-        System.out.println(surl);
         return HttpUtil.getResponse(surl,"GET", null, String[].class);
     }
 
@@ -120,18 +115,4 @@ public class LiveVideoApi {
         return SDKConfigMgr.getServerHost() + prefixUrl;
     }
 
-    public static void main(String[] args) throws Exception {
-        LiveVideoApi liveVideoApi = new LiveVideoApi();
-        LiveVideo liveVideo = new LiveVideo();
-        liveVideo.setConfNo("913581819843");
-        liveVideo.setAutoPublishRecording(true);
-        liveVideo.setEndTime(System.currentTimeMillis() + 100 * 1000 * 1000);
-        liveVideo.setStartTime(System.currentTimeMillis());
-        liveVideo.setNemoNumber("291854");
-        liveVideo.setTitle("aaaa");
-        Result<LV> lvResult = liveVideoApi.newLiveVideo("3807773d9c7d3b70351a1dcb92c08e9558eeb6d9", "72bcc56c87169cac623acb8d5c28dd1053cd0d9cc96dc57cab3ee5cb6a88774c",
-                "291854", liveVideo);
-        System.out.println(lvResult.getData());
-
-    }
 }
