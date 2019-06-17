@@ -11,7 +11,7 @@ import java.io.InputStream;
  */
 public class SDKConfigMgr {
 
-    private static final String CONFIG_FILE = "/com/xylink/config/config.json";
+    private static final String CONFIG_FILE = "/com/ananwulian/xylinkcloudsdk/config/config.json";
 
     private static String DEFAULT_SERVER_HOST = "https://sdk.xylink.com";
 
@@ -48,6 +48,9 @@ public class SDKConfigMgr {
     private static SDKConfig loadConfigs() {
         try {
             InputStream inputStream = SDKConfigMgr.class.getResourceAsStream(CONFIG_FILE);
+            if(inputStream == null){
+                return null;
+            }
             SDKConfig sdkConfig = objectMapper.readValue(inputStream, SDKConfig.class);
             return sdkConfig;
         } catch (IOException e) {
