@@ -133,6 +133,7 @@ public class VodApi {
      * @param vodId
      * @return
      * @throws IOException
+     * @deprecated
      */
     public Result videoDownload(String enterpriseId, String token,String vodId)throws IOException{
         String surl = getPrefixUrl()  + "vods/"+ vodId+ "/download?enterpriseId=" + enterpriseId ;
