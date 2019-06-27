@@ -2,7 +2,6 @@ package com.ananwulian.xylinkcloudsdk.sdk.enterpriseNemo;
 
 import com.ananwulian.xylinkcloudsdk.config.SDKConfigMgr;
 import com.ananwulian.xylinkcloudsdk.model.CallNumberInfo;
-import com.ananwulian.xylinkcloudsdk.model.MeetingRoom;
 import com.ananwulian.xylinkcloudsdk.util.HttpUtil;
 import com.ananwulian.xylinkcloudsdk.util.Result;
 import com.ananwulian.xylinkcloudsdk.util.SignatureSample;
