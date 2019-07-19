@@ -82,6 +82,11 @@ public class HttpUtil {
             conn = (HttpURLConnection) url.openConnection();
         }
 
+        // 设置连接超时（30s）
+        conn.setConnectTimeout(30 * 1000);
+        // 设置读取数据超时（60s）
+        conn.setReadTimeout(60 * 1000);
+
         conn.setRequestMethod(method);
         conn.addRequestProperty("Accept", "application/json");
         conn.addRequestProperty("Accept-Charset", "UTF-8");
