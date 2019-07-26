@@ -64,8 +64,6 @@ public class SignatureSample {
         }
 
         String ret = strToSign.toString();
-        logger.debug(ret);
-        logger.debug("------------------");
         return ret;
     }
 
@@ -75,7 +73,6 @@ public class SignatureSample {
             sb.append(d);
             sb.append(",");
         }
-        logger.debug(sb.toString());
     }
 
     private String calculateHMAC(String data, String key) throws SignatureException {

@@ -72,6 +72,11 @@ public class HttpUtil {
 
 
     private static HttpURLConnection getHttpURLConnection(String jsonEntity, String surl, String method) throws IOException {
+        logger.debug("xylink method:" + method);
+        logger.debug("xylink surl:" + surl);
+        logger.debug("xylink jsonEntity:" + jsonEntity);
+        logger.debug("------------------");
+
         URL url = new URL(surl);
         HttpURLConnection conn = null;
         if (StringUtils.isNotBlank(proxyHost)) {
