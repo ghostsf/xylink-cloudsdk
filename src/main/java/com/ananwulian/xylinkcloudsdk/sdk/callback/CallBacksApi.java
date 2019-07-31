@@ -1,7 +1,6 @@
 package com.ananwulian.xylinkcloudsdk.sdk.callback;
 
 import com.ananwulian.xylinkcloudsdk.config.SDKConfigMgr;
-import com.ananwulian.xylinkcloudsdk.model.VodInfo;
 import com.ananwulian.xylinkcloudsdk.model.callback.CallbackEvent;
 import com.ananwulian.xylinkcloudsdk.model.callback.ExternalCallback;
 import com.ananwulian.xylinkcloudsdk.model.callback.RosterCallback;
@@ -21,8 +20,9 @@ public class CallBacksApi {
 
     /**
      * 获取注册的所有的基础事件
+     *
      * @param enterpriseId .
-     * @param token .
+     * @param token        .
      * @return .
      * @throws IOException .
      */
@@ -35,8 +35,9 @@ public class CallBacksApi {
 
     /**
      * 注册基础事件
-     * @param enterpriseId .
-     * @param token .
+     *
+     * @param enterpriseId     .
+     * @param token            .
      * @param externalCallback .
      * @return .
      * @throws IOException .
@@ -51,14 +52,15 @@ public class CallBacksApi {
 
     /**
      * 更新已经注册的基础事件
-     * @param enterpriseId .
-     * @param token .
+     *
+     * @param enterpriseId     .
+     * @param token            .
      * @param externalCallback .
      * @return .
      * @throws IOException .
      */
     public Result updateExternalCallback(String enterpriseId, String token, ExternalCallback externalCallback) throws IOException {
-        String surl = getPrefixUrl() + "callbacks/" + externalCallback.getCallbackEvent().name()+"?enterpriseId=" + enterpriseId;
+        String surl = getPrefixUrl() + "callbacks/" + externalCallback.getCallbackEvent().name() + "?enterpriseId=" + enterpriseId;
         String jsonEntity = new ObjectMapper().writeValueAsString(externalCallback);
         String signature = signatureSample.computeSignature(jsonEntity, "PUT", token, surl);
         surl += "&signature=" + signature;
@@ -67,8 +69,9 @@ public class CallBacksApi {
 
     /**
      * 移除注册的基础事件
-     * @param enterpriseId .
-     * @param token .
+     *
+     * @param enterpriseId  .
+     * @param token         .
      * @param callbackEvent .
      * @return .
      * @throws IOException .
@@ -82,8 +85,9 @@ public class CallBacksApi {
 
     /**
      * 获取已经注册的所有Roster事件
+     *
      * @param enterpriseId .
-     * @param token .
+     * @param token        .
      * @return .
      * @throws IOException .
      */
@@ -96,9 +100,10 @@ public class CallBacksApi {
 
     /**
      * 注册或更新Roster事件
-     * @param enterpriseId .
-     * @param token .
-     * @param confNumber 会议号 .
+     *
+     * @param enterpriseId   .
+     * @param token          .
+     * @param confNumber     会议号 .
      * @param rosterCallback .
      * @return .
      * @throws IOException .
@@ -113,9 +118,10 @@ public class CallBacksApi {
 
     /**
      * 移除住处的roster事件
+     *
      * @param enterpriseId .
-     * @param token .
-     * @param confNumber 会议号.
+     * @param token        .
+     * @param confNumber   会议号.
      * @return .
      * @throws IOException .
      */
@@ -128,5 +134,13 @@ public class CallBacksApi {
 
     private String getPrefixUrl() {
         return SDKConfigMgr.getServerHost() + prefixUrl;
+    }
+
+
+    public String getWssUrl(String enterpriseId, String token) {
+        String wssUrl = SDKConfigMgr.getWsServerHost() + "/external/websocket/message?enterpriseId=" + enterpriseId;
+        String signature = signatureSample.computeSignature("", "GET", token, wssUrl);
+        wssUrl += "&signature=" + signature;
+        return wssUrl;
     }
 }

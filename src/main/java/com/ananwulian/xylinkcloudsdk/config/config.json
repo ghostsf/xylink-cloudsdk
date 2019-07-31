@@ -1,3 +1,4 @@
 {
-  "serverHost": "https://sdk.xylink.com"
+  "serverHost": "https://sdk.xylink.com",
+  "wsServerHost": "wss://sdk.xylink.com"
 }

@@ -15,6 +15,8 @@ public class SDKConfigMgr {
 
     private static String DEFAULT_SERVER_HOST = "https://sdk.xylink.com";
 
+    private static String DEFAULT_WS_SERVER_HOST = "wss://sdk.xylink.com";
+
     private static SDKConfig sdkConfig;
 
     private static final ObjectMapper objectMapper = new ObjectMapper();
@@ -24,11 +26,16 @@ public class SDKConfigMgr {
         if(sdkConfig == null) {
             sdkConfig = new SDKConfig();
             sdkConfig.setServerHost(DEFAULT_SERVER_HOST);
+            sdkConfig.setWsServerHost(DEFAULT_WS_SERVER_HOST);
         }
     }
 
     public static String getServerHost() {
         return sdkConfig.getServerHost();
+    }
+
+    public static String getWsServerHost() {
+        return sdkConfig.getWsServerHost();
     }
 
     public static void setServerHost(String host) {
@@ -56,10 +63,5 @@ public class SDKConfigMgr {
         } catch (IOException e) {
             return new SDKConfig();
         }
-    }
-
-    public static void main(String[] args) {
-        SDKConfig sdkConfig = new SDKConfig();
-        sdkConfig.setServerHost("http://localhost");
     }
 }

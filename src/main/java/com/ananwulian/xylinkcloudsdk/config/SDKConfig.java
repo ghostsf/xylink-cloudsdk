@@ -7,6 +7,16 @@ public class SDKConfig {
 
     private String serverHost;
 
+    private String wsServerHost;
+
+    public String getWsServerHost() {
+        return wsServerHost;
+    }
+
+    public void setWsServerHost(String wsServerHost) {
+        this.wsServerHost = wsServerHost;
+    }
+
     public String getServerHost() {
         return serverHost;
     }

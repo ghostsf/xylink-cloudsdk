@@ -20,10 +20,15 @@ public class SignatureSample {
 
     private static Logger logger = LoggerFactory.getLogger(SignatureSample.class);
 
-    private String requestUriPrefix="/api/rest/external/v1/";
+    private String requestUriPrefix = "/api/rest/external/v1/";
 
-    protected String computeStringToSign(String requestPath, Map<String, String> reqParams, String reqJsonEntity, String reqMethod) throws Exception{
+    private String wssRequestUriPrefix = "/external/";
+
+    protected String computeStringToSign(String requestPath, Map<String, String> reqParams, String reqJsonEntity, String reqMethod) throws Exception {
         String prefix = SDKConfigMgr.getServerHost() + requestUriPrefix;
+        if (requestPath.startsWith(SDKConfigMgr.getWsServerHost())) {
+            prefix = SDKConfigMgr.getWsServerHost() + wssRequestUriPrefix;
+        }
         //1. request method
         StringBuffer strToSign = new StringBuffer(reqMethod);
         strToSign.append("\n");
@@ -33,33 +38,33 @@ public class SignatureSample {
         //3. sorted request param and value
         List<String> params = new ArrayList<String>(reqParams.keySet());
         Collections.sort(params);
-        for(String param : params) {
+        for (String param : params) {
             strToSign.append(param);
             strToSign.append("=");
             strToSign.append(reqParams.get(param));
             strToSign.append("&");
         }
-        strToSign.deleteCharAt(strToSign.length()-1);
+        strToSign.deleteCharAt(strToSign.length() - 1);
         strToSign.append("\n");
         //4. request entity
 //        byte[] reqEntity = reqJsonEntity.getBytes("utf-8");
         byte[] reqEntity = new byte[0];
-        if (StringUtils.isNotBlank(reqJsonEntity)){
+        if (StringUtils.isNotBlank(reqJsonEntity)) {
             reqEntity = reqJsonEntity.getBytes("utf-8");
         }
         //printArray(reqEntity);
-        if(reqEntity.length == 0) {
+        if (reqEntity.length == 0) {
             byte[] entity = DigestUtils.sha256("");
             strToSign.append(Base64.encodeBase64String(entity));
         } else {
             byte[] data = null;
-            if(reqEntity.length <= 100) {
+            if (reqEntity.length <= 100) {
                 data = reqEntity;
             } else {
                 data = Arrays.copyOf(reqEntity, 100);
             }
             byte[] entity = DigestUtils.sha256(data);
-           // printArray(entity);
+            // printArray(entity);
             strToSign.append(Base64.encodeBase64String(entity));
         }
 
@@ -69,7 +74,7 @@ public class SignatureSample {
 
     private void printArray(byte[] data) {
         StringBuffer sb = new StringBuffer();
-        for(byte d : data) {
+        for (byte d : data) {
             sb.append(d);
             sb.append(",");
         }
@@ -93,11 +98,11 @@ public class SignatureSample {
             Map<String, String> reqParams = new HashMap<String, String>();
             int idx = reqPath.indexOf("?");
             String[] params = reqPath.substring(idx + 1).split("&");
-            for(String param : params) {
+            for (String param : params) {
                 String[] pair = param.split("=");
-                if (pair.length == 1){
+                if (pair.length == 1) {
                     reqParams.put(pair[0], "");
-                }else {
+                } else {
                     reqParams.put(pair[0], pair[1]);
                 }
             }
