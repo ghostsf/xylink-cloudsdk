@@ -5,7 +5,6 @@ import com.ananwulian.xylinkcloudsdk.model.VodInfo;
 import com.ananwulian.xylinkcloudsdk.util.HttpUtil;
 import com.ananwulian.xylinkcloudsdk.util.Result;
 import com.ananwulian.xylinkcloudsdk.util.SignatureSample;
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -197,6 +196,22 @@ public class VodApi {
      */
     public Result getDownloadurlBySessionId(String enterpriseId, String token, String sessionId)throws IOException{
         String surl = getPrefixUrl()  + "vods/session/"+ sessionId+ "/downloadurl?enterpriseId=" + enterpriseId ;
+        String signature = signatureSample.computeSignature("","GET",token,surl);
+        surl += "&signature=" + signature;
+        return HttpUtil.getResponse(surl,"GET", null, Map.class);
+    }
+
+    /**
+     * 获取视频的播放链接
+     * getPlayUrl
+     * @param enterpriseId
+     * @param token
+     * @param vodId
+     * @return
+     * @throws IOException
+     */
+    public Result getPlayUrl(String enterpriseId, String token,String vodId)throws IOException{
+        String surl = getPrefixUrl()  + "vods/"+ vodId+ "/sharedInfo?enterpriseId=" + enterpriseId ;
         String signature = signatureSample.computeSignature("","GET",token,surl);
         surl += "&signature=" + signature;
         return HttpUtil.getResponse(surl,"GET", null, Map.class);
