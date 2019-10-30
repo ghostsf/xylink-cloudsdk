@@ -74,7 +74,7 @@ public class CreateMeetingApi {
      * @return
      */
     public SdkMeeting createMeetingV2(String enterpriseId, String token, SdkCloudMeetingRoomRequest sdkCloudMeetingRoomRequest) throws IOException{
-        String url = SDKConfigMgr.getServerHost() + "/api/rest/external/v1/create_meeting?enterpriseId=" + enterpriseId;
+        String url = SDKConfigMgr.getServerHost() + "/api/rest/external/v2/create_meeting?enterpriseId=" + enterpriseId;
         if(sdkCloudMeetingRoomRequest == null || sdkCloudMeetingRoomRequest.getMeetingName() == null) {
             return null;
         }
