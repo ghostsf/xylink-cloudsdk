@@ -18,7 +18,7 @@ import java.io.IOException;
  */
 public class DeviceSNApi {
     private static SignatureSample signatureSample = new SignatureSample();
-    private static final String prefixUrl = "/api/rest/external/v1/deviceInfo";
+    private static final String prefixUrl = "/api/rest/external/v1/third/unbind";
     private static final ObjectMapper objectMapper = new ObjectMapper();
 
 //    PUT https://sdk.xylink.com/api/rest/external/v1/third/unbind?enterpriseId=***&deviceSN=***&signature=***
