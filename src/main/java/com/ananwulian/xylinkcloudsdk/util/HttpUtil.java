@@ -31,7 +31,7 @@ public class HttpUtil {
             is = conn.getErrorStream();
         }
         String respData = HttpUtil.getResponseData(is);
-        logger.info("xylink respData:" + jsonEntity);
+        logger.info("xylink respData:" + respData);
         logger.info("------------------");
         conn.disconnect();
         return getResult(status, respData, clazz);
