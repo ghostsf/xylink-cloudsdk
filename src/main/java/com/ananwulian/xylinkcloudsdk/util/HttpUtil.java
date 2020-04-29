@@ -31,6 +31,8 @@ public class HttpUtil {
             is = conn.getErrorStream();
         }
         String respData = HttpUtil.getResponseData(is);
+        logger.info("xylink respData:" + jsonEntity);
+        logger.info("------------------");
         conn.disconnect();
         return getResult(status, respData, clazz);
     }
@@ -72,10 +74,10 @@ public class HttpUtil {
 
 
     private static HttpURLConnection getHttpURLConnection(String jsonEntity, String surl, String method) throws IOException {
-        logger.debug("xylink method:" + method);
-        logger.debug("xylink surl:" + surl);
-        logger.debug("xylink jsonEntity:" + jsonEntity);
-        logger.debug("------------------");
+        logger.info("xylink method:" + method);
+        logger.info("xylink surl:" + surl);
+        logger.info("xylink jsonEntity:" + jsonEntity);
+        logger.info("------------------");
 
         URL url = new URL(surl);
         HttpURLConnection conn = null;
