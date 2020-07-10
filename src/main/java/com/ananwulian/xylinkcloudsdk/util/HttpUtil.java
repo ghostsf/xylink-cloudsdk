@@ -132,8 +132,9 @@ public class HttpUtil {
                 result.setSuccess(true);
                 if (clazz != null) {
                     if (!clazz.getName().equals(String.class.getName())) {
-                        if (respData != null && !"".equals(respData.trim()))
+                        if (respData != null && !"".equals(respData.trim())) {
                             result.setData(objectMapper.readValue(respData, clazz));
+                        }
                     } else {
                         result.setData(respData);
                     }

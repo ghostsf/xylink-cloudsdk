@@ -1,5 +1,7 @@
 package com.ananwulian.xylinkcloudsdk.util;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * <pre>
  * Error response body in case not 200/201:
@@ -9,6 +11,7 @@ package com.ananwulian.xylinkcloudsdk.util;
  * - moreInfo          Link to detail context and solution, e.g. http://youmeet/errors/1234
  * </pre>
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class RestMessage
 {
    private static final char SEPERATOR = ';';
