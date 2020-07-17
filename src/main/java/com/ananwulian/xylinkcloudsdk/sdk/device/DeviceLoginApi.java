@@ -1,9 +1,9 @@
 package com.ananwulian.xylinkcloudsdk.sdk.device;
 
-import com.ananwulian.xylinkcloudsdk.model.DeviceLoginReq;
 import com.ananwulian.xylinkcloudsdk.util.HttpUtil;
 import com.ananwulian.xylinkcloudsdk.util.Result;
 import com.ananwulian.xylinkcloudsdk.util.SignatureSample;
+import org.apache.commons.lang3.StringUtils;
 import org.codehaus.jackson.map.ObjectMapper;
 
 import java.io.IOException;
@@ -55,16 +55,15 @@ public class DeviceLoginApi {
      * @param appId
      * @param sign
      * @param enterpriseId
-     * @param deviceLoginReq
+     * @param jsonEntity
      * @return
      * @throws IOException
      */
-    public Result simulateLogin(String enterpriseId, String appId, String sign, DeviceLoginReq deviceLoginReq) throws IOException {
+    public Result simulateLogin(String enterpriseId, String appId, String sign, String jsonEntity) throws IOException {
         String surl = getPrefixUrl() + "?extId=" + enterpriseId + "&sign=" + sign;
-        if (deviceLoginReq == null) {
+        if (StringUtils.isBlank(jsonEntity)) {
             return null;
         }
-        String jsonEntity = new ObjectMapper().writeValueAsString(deviceLoginReq);
         return HttpUtil.getResponseForSDK(surl, "PUT", appId, jsonEntity, Map.class);
     }
 
