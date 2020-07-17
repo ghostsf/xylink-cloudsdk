@@ -115,4 +115,15 @@ public class SignatureSample {
             return null;
         }
     }
+
+
+    /**
+     * app sdk 模拟请求 参数签名
+     *
+     * @param jsonEntity
+     * @return
+     */
+    public String computeSignatureForSDK(String jsonEntity) {
+        return "";
+    }
 }

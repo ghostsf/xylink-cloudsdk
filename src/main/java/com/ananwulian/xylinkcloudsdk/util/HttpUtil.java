@@ -37,6 +37,32 @@ public class HttpUtil {
         return getResult(status, respData, clazz);
     }
 
+    /**
+     * app sdk 模拟请求
+     *
+     * @param surl
+     * @param method
+     * @param jsonEntity
+     * @param clazz
+     * @return
+     * @throws IOException
+     */
+    public static Result getResponseForSDK(String surl, String method, String appId, String jsonEntity, Class<?> clazz) throws IOException {
+        HttpURLConnection conn = HttpUtil.getHttpURLConnectionForSDK(appId, jsonEntity, surl, method);
+        InputStream is = null;
+        int status = conn.getResponseCode();
+        if (status == 200 || status == 204) {
+            is = conn.getInputStream();
+        } else {
+            is = conn.getErrorStream();
+        }
+        String respData = HttpUtil.getResponseData(is);
+        logger.debug("xylink sdk simulate respData:" + respData);
+        logger.debug("------------------");
+        conn.disconnect();
+        return getResult(status, respData, clazz);
+    }
+
     public static Result getByteStreamResponse(String surl, String method, String jsonEntity) throws IOException {
         HttpURLConnection conn = HttpUtil.getHttpURLConnection(jsonEntity, surl, method);
         InputStream is = null;
@@ -74,10 +100,10 @@ public class HttpUtil {
 
 
     private static HttpURLConnection getHttpURLConnection(String jsonEntity, String surl, String method) throws IOException {
-        logger.info("xylink method:" + method);
-        logger.info("xylink surl:" + surl);
-        logger.info("xylink jsonEntity:" + jsonEntity);
-        logger.info("------------------");
+        logger.debug("xylink method:" + method);
+        logger.debug("xylink surl:" + surl);
+        logger.debug("xylink jsonEntity:" + jsonEntity);
+        logger.debug("------------------");
 
         URL url = new URL(surl);
         HttpURLConnection conn = null;
@@ -102,6 +128,36 @@ public class HttpUtil {
         conn.setDoInput(true);
         if (jsonEntity != null && !"".equals(jsonEntity.trim())) {
             conn.getOutputStream().write(jsonEntity.getBytes("utf-8"));
+        }
+        conn.connect();
+        return conn;
+    }
+
+    private static HttpURLConnection getHttpURLConnectionForSDK(String appId, String jsonEntity, String surl, String method) throws IOException {
+        logger.debug("xylink sdk simulate method:" + method);
+        logger.debug("xylink sdk simulate surl:" + surl);
+        logger.debug("xylink sdk simulate jsonEntity:" + jsonEntity);
+        logger.debug("------------------");
+
+        URL url = new URL(surl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        // 设置连接超时（30s）
+        conn.setConnectTimeout(30 * 1000);
+        // 设置读取数据超时（60s）
+        conn.setReadTimeout(60 * 1000);
+
+        conn.setRequestMethod(method);
+        conn.addRequestProperty("Accept", "application/json");
+        conn.addRequestProperty("Accept-Charset", "UTF-8");
+        conn.addRequestProperty("Content-Type", "application/json;charset=utf-8");
+        conn.addRequestProperty("AppID", appId);
+        conn.addRequestProperty("Accept-Encoding", "gzip");
+        conn.addRequestProperty("Accept-Language", "zh-CN");
+        conn.setDoOutput(true);
+        conn.setDoInput(true);
+        if (jsonEntity != null && !"".equals(jsonEntity.trim())) {
+            conn.getOutputStream().write(jsonEntity.getBytes("UTF-8"));
         }
         conn.connect();
         return conn;
@@ -152,8 +208,8 @@ public class HttpUtil {
                 result.setData(restMessage);
                 result.setErrorStatus(responseCode);
             } catch (Exception e) {
-                logger.info("JSon String convert to Object error!");
-                logger.error("JSon String convert to Object error!", e);
+                result.setSuccess(false);
+                result.setErrorStatus(status);
             }
         }
 
