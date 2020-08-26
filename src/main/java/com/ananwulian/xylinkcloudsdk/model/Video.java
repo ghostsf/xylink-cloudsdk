@@ -4,9 +4,21 @@ import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Video {
+    /**
+     * video url
+     */
     private String url;
+    /**
+     * video开始时间
+     */
     private long startTimestamp;
+    /**
+     * video结束时间
+     */
     private long endTimestamp;
+    /**
+     * video时长
+     */
     private long durationMs;
 
     public String getUrl() {
