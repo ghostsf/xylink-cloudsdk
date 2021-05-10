@@ -113,12 +113,12 @@
         <repository>
             <id>nexus-releases</id>
             <name>private-nexus-library-releases</name>
-            <url>http://nexus.ananwulian.com/repository/maven-releases/</url>
+            <url>http://home.kenawei.com:20882/repository/maven-releases/</url>
         </repository>
         <snapshotRepository>
             <id>nexus-snapshots</id>
             <name>private-nexus-library-snapshots</name>
-            <url>http://nexus.ananwulian.com/repository/maven-snapshots/</url>
+            <url>http://home.kenawei.com:20882/repository/maven-snapshots/</url>
         </snapshotRepository>
     </distributionManagement>
 
